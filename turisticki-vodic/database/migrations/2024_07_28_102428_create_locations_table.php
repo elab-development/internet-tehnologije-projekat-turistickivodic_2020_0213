@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('route_id')->constrained()->onDelete('cascade');
+            $table->string('name')->nullable();
+            $table->foreignId('route_id')->constrained()->onDelete('cascade')->nullable();
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->integer('order');
