@@ -6,7 +6,7 @@ use App\Models\Route;
 use App\Http\Resources\RouteResource;
 use Illuminate\Http\Request;
 
-class RouteController extends Controller
+class MyRouteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class RouteController extends Controller
     public function index()
     {
         $routes = Route::all();
-        return $routes;
+        return RouteResource::collection($routes);
     }
 
     /**
@@ -24,8 +24,10 @@ class RouteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
- 
-    
+    public function create()
+    {
+        
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -41,6 +43,7 @@ class RouteController extends Controller
             'user_id' => 'required|exists:users,id',
             'is_approved' => 'boolean'
         ]);
+
 
         $route = new Route([
             'name' => $request->name,
@@ -74,10 +77,9 @@ class RouteController extends Controller
      * @param  \App\Models\Route  $route
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Route $route)
     {
-        $route = Route::find($id);
-        return view('routes.edit', compact('route'));
+        //
     }
 
     /**
@@ -87,33 +89,9 @@ class RouteController extends Controller
      * @param  \App\Models\Route  $route
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Route $route)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'user_id' => 'required|integer|exists:users,id',
-        ]);
-
-        // Find the route by ID
-        $route = Route::find($id);
-
-        // Check if the route exists
-        if (!$route) {
-            return redirect('/routes')->with('error', 'Route not found');
-        }
-
-        // Update the route with the validated data
-        $route->name = $validatedData['name'];
-        $route->description = $validatedData['description'];
-        $route->user_id = $validatedData['user_id'];
-
-        // Save the updated route
-        $route->save();
-
-        // Redirect with success message
-        return redirect('/routes')->with('success', 'Route updated successfully');
+        //
     }
 
     /**
@@ -124,18 +102,6 @@ class RouteController extends Controller
      */
     public function destroy(Route $route)
     {
-        // Attempt to delete the route
-        try {
-            $route->delete();
-            return response()->json([
-                'message' => 'Route deleted successfully!',
-            ], 200);
-        } catch (\Exception $e) {
-            // Handle any errors that might occur
-            return response()->json([
-                'message' => 'Failed to delete the route.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        //
     }
 }
