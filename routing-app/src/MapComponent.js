@@ -12,6 +12,7 @@ const MapComponent = () => {
   const [destination, setDestination] = useState("");
   const [waypoints, setWaypoints] = useState([]);
   const [showDirections, setShowDirections] = useState(false);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const mapRef = useRef(null);
 
   const mapContainerStyle = {
@@ -19,11 +20,6 @@ const MapComponent = () => {
     bottom: 0,
     width: "100%",
     height: "88vh",
-  };
-
-  const initialCenter = {
-    lat: 0,
-    lng: 0,
   };
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -63,9 +59,13 @@ const MapComponent = () => {
     }
   };
 
-  const onMapLoad = (map) => {
+  const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-  };
+    // Only set center when the map loads for the first time
+    if (map) {
+      setCenter(map.getCenter().toJSON());
+    }
+  }, []);
 
   const controlsStyle = {
     display: "flex",
@@ -137,7 +137,7 @@ const MapComponent = () => {
       </div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        center={initialCenter}
+        center={center}
         zoom={3}
         onLoad={onMapLoad}
       >
