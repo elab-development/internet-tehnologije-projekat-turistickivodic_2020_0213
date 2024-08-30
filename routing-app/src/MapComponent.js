@@ -4,6 +4,7 @@ import {
   useJsApiLoader,
   DirectionsService,
   DirectionsRenderer,
+  Geocoder,
 } from "@react-google-maps/api";
 
 const MapComponent = () => {
@@ -12,7 +13,7 @@ const MapComponent = () => {
   const [destination, setDestination] = useState("");
   const [waypoints, setWaypoints] = useState([]);
   const [showDirections, setShowDirections] = useState(false);
-  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [center, setCenter] = useState({ lat: 44.8125449, lng: 20.46123 });
   const mapRef = useRef(null);
 
   const mapContainerStyle = {
@@ -53,8 +54,37 @@ const MapComponent = () => {
     setWaypoints(newWaypoints);
   };
 
+  const geocodeAddress = (address, callback) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        const location = results[0].geometry.location;
+        callback(location.lat(), location.lng());
+      } else {
+        console.log(
+          "Geocode was not successful for the following reason: " + status
+        );
+      }
+    });
+  };
+
+  const logLatLng = () => {
+    geocodeAddress(origin, (lat, lng) => {
+      console.log("Origin:", { lat, lng });
+    });
+    geocodeAddress(destination, (lat, lng) => {
+      console.log("Destination:", { lat, lng });
+    });
+    waypoints.forEach((waypoint, index) => {
+      geocodeAddress(waypoint, (lat, lng) => {
+        console.log(`Waypoint ${index + 1}:`, { lat, lng });
+      });
+    });
+  };
+
   const handleRouteClick = () => {
     if (origin !== "" && destination !== "") {
+      logLatLng();
       setShowDirections(true);
     }
   };
@@ -138,7 +168,7 @@ const MapComponent = () => {
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
-        zoom={3}
+        zoom={12}
         onLoad={onMapLoad}
       >
         {showDirections && (

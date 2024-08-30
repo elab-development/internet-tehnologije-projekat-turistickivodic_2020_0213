@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import MapComponent from "./MapComponent";
 import About from "./About";
-import Contact from "./Contact";
+import Register from "./Register";
 
 const App = () => {
   const navItemStyle = {
@@ -36,8 +36,8 @@ const App = () => {
               </Link>
             </li>
             <li style={navItemStyle}>
-              <Link to="/contact" style={linkStyle}>
-                Contact
+              <Link to="/register" style={linkStyle}>
+                Register
               </Link>
             </li>
           </ul>
@@ -47,7 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<MapComponent />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>
