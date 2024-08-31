@@ -39,14 +39,12 @@ class RouteController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'user_id' => 'required|exists:users,id',
-            'is_approved' => 'boolean'
         ]);
 
         $route = new Route([
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $request->user_id,
-            'is_approved' => $request->is_approved ?? false,
         ]);
 
         $route->save();

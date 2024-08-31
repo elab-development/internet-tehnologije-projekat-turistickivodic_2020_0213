@@ -24,6 +24,7 @@ const Login = ({ setIsLoggedIn, setUserName }) => {
       // Check if the response contains the user's name
       if (response.data.user && response.data.user.name) {
         localStorage.setItem("userName", response.data.user.name); // Save the user's name
+        localStorage.setItem("userId", response.data.user.id); // Save the user's ID
         setUserName(response.data.user.name); // Set the user's name in state
       } else {
         console.warn("User name not found in the response.");

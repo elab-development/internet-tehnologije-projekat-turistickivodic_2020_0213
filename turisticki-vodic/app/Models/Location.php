@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    protected $fillable = ['route_id', 'latitude', 'longitude', 'order'];
+    protected $fillable = ['name','route_id', 'latitude', 'longitude', 'order'];
 
     public function route()
     {

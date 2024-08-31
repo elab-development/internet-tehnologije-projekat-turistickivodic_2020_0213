@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Route extends Model
 {
-    protected $fillable = ['name', 'description', 'user_id', 'is_approved'];
+    protected $fillable = ['name', 'description', 'user_id'];
 
     public function user()
     {

@@ -24,6 +24,7 @@ const App = () => {
     setUserName(""); // Clear the username
     localStorage.removeItem("authToken"); // Remove token
     localStorage.removeItem("userName"); // Remove username
+    localStorage.removeItem("userId"); // Remove user ID
     alert("You have been logged out.");
   };
 

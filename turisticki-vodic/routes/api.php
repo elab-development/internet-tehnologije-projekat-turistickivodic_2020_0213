@@ -52,7 +52,7 @@ Route::post('/login', [AuthController::class, 'login']);
 //routes
 //Route::get('/routes', 'App\Http\Controllers\RouteController@index');
 //Route::get('/routes/{id}', 'App\Http\Controllers\RouteController@show');
-//Route::post('/routes', 'App\Http\Controllers\RouteController@store');
+Route::post('/routes', 'App\Http\Controllers\RouteController@store');
 //Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
 //Route::put('/routes/{route}', 'App\Http\Controllers\RouteController@update');
 
