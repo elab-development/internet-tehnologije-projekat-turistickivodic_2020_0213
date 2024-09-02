@@ -4,6 +4,7 @@ import Home from "./Home";
 import MapComponent from "./MapComponent";
 import Login from "./Login";
 import Register from "./Register";
+import MyRoutes from "./MyRoutes"; // Import the new MyRoutes component
 
 const App = () => {
   const [userName, setUserName] = useState(""); // State to hold the user's name
@@ -40,6 +41,10 @@ const App = () => {
   return (
     <Router>
       <div>
+        {/* Display username above the navbar */}
+        {isLoggedIn && (
+          <div style={userNameDisplayStyle}>Welcome, {userName}!</div>
+        )}
         <nav style={navStyle}>
           <ul style={navListStyle}>
             <li style={navItemStyle}>
@@ -52,8 +57,6 @@ const App = () => {
                 Map
               </Link>
             </li>
-            {isLoggedIn && <span style={userNameStyle}>{userName}</span>}{" "}
-            {/* Display username */}
             <li style={navItemStyle}>
               {isLoggedIn ? (
                 <Link to="/" onClick={handleLogout} style={linkStyle}>
@@ -70,6 +73,11 @@ const App = () => {
                 Register
               </Link>
             </li>
+            <li style={navItemStyle}>
+              <Link to="/routes" style={linkStyle}>
+                My Routes
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -83,6 +91,10 @@ const App = () => {
             }
           />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/routes"
+            element={<MyRoutes isLoggedIn={isLoggedIn} />} // Use the MyRoutes component here
+          />
         </Routes>
       </div>
     </Router>
@@ -100,10 +112,11 @@ const navListStyle = {
   justifyContent: "space-around",
 };
 
-const userNameStyle = {
+const userNameDisplayStyle = {
+  backgroundColor: "#333",
   color: "#fff",
-  marginRight: "20px",
-  alignSelf: "center",
+  padding: "2px",
+  textAlign: "center",
 };
 
 export default App;

@@ -24,7 +24,6 @@ class RouteResource extends JsonResource
             'name' => $this->resource->name,
             'description' => $this->resource->description,
             'user' => $this->resource->user,
-            'is_approved' => $this->resource->is_approved
         ];
     }
 }

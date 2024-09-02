@@ -126,14 +126,14 @@ const MapComponent = () => {
 
       // Save each location
       const locations = [
-        { name: "Origin", address: origin, order: 1 },
+        { name: origin, address: origin, order: 1 },
         ...waypoints.map((wp, index) => ({
-          name: `Waypoint ${index + 1}`,
+          name: wp,
           address: wp,
           order: index + 2,
         })),
         {
-          name: "Destination",
+          name: destination,
           address: destination,
           order: waypoints.length + 2,
         },

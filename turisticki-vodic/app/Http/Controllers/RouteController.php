@@ -61,11 +61,24 @@ class RouteController extends Controller
      * @param  \App\Models\Route  $route
      * @return \Illuminate\Http\Response
      */
-    public function show(Route $route)
-    {
-        return new RouteResource($route);
+    public function show($id)
+{
+    // Find the route by ID, including the locations
+    $route = Route::with('locations')->find($id);
+    
+    // Check if the route exists
+    if (!$route) {
+        return response()->json('Route not found', 404);
     }
 
+    // Return the route data in the desired format, including locations
+    return response()->json([
+        'id' => $route->id,
+        'name' => $route->name,
+        'description' => $route->description,
+        'locations' => $route->locations, // Return the locations relationship
+    ]);
+}
     /**
      * Show the form for editing the specified resource.
      *
