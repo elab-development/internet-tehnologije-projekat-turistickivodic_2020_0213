@@ -71,4 +71,7 @@ Route::resource('user.routes', UserRouteController::class);
 //Route::delete('/routes/{id}', [UserRouteController::class, 'destroy']);
 Route::get('/users/{id}/routes', [UserRouteController::class, 'index'])->name('users.posts.index');
 
+
 Route::get('tours', [TourController::class, 'index']);
+
+

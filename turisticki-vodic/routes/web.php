@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CacheController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,5 @@ Route::get('/', function () {
 
 //Route::get('/users', 'App\Http\Controllers\UserController@index');
 
+Route::get('users', [CacheController::class, 'index']);
+Route::delete('users/cache', [CacheController::class, 'clearCache']);
