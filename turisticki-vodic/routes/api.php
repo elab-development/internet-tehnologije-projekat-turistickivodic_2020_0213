@@ -22,13 +22,13 @@ use App\Http\Controllers\TourController;
 |
 */
 
-
+Route::get('/routes', 'App\Http\Controllers\RouteController@index');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-    Route::resource('routes', MyRouteController::class)->only(['update','store','destroy','index']);
+    Route::resource('routesR', MyRouteController::class)->only(['update','store','destroy','index']);
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -51,7 +51,7 @@ Route::post('/login', [AuthController::class, 'login']);
 //Route::resource('routes', MyRouteController::class);
 
 //routes
-//Route::get('/routes', 'App\Http\Controllers\RouteController@index');
+
 Route::get('/routes/{id}', 'App\Http\Controllers\RouteController@show');
 Route::post('/routes', 'App\Http\Controllers\RouteController@store');
 Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
@@ -70,8 +70,9 @@ Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::resource('user.routes', UserRouteController::class);
 //Route::delete('/routes/{id}', [UserRouteController::class, 'destroy']);
 Route::get('/users/{id}/routes', [UserRouteController::class, 'index'])->name('users.posts.index');
+Route::get('/routesAll', [UserRouteController::class, 'indexAll'])->name('users.posts.index');
 
 
 Route::get('tours', [TourController::class, 'index']);
 
-
+Route::get('/admin/routes', 'RouteController@getUserRoutes')->middleware('admin');

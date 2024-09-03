@@ -19,11 +19,12 @@ class RouteResource extends JsonResource
     public function toArray($request)
     {
         //return parent::toArray($request);
-        return[
-            'id' => $this->resource->id,
-            'name' => $this->resource->name,
-            'description' => $this->resource->description,
-            'user' => $this->resource->user,
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'user' => $this->user,
+            'locations' => $this->whenLoaded('locations'), // Include locations if they are loaded
         ];
     }
 }

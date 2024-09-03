@@ -15,8 +15,16 @@ class RouteController extends Controller
      */
     public function index()
     {
-        $routes = Route::all();
-        return $routes;
+        // Eager load the locations relationship
+        $routes = Route::with('locations')->get(); 
+    
+        // Check if routes exist
+        if ($routes->isEmpty()) {
+            return response()->json('Data not found', 404);
+        }
+    
+        // Return the routes with their locations
+        return response()->json($routes);
     }
 
     /**
@@ -148,5 +156,13 @@ class RouteController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getUserRoutes($userId)
+    {
+        if (auth()->user()->role == 'admin') {
+            return Route::all(); // Admin can view all routes
+        }
+        return Route::where('user_id', $userId)->get(); // Regular users only see their routes
     }
 }

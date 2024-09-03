@@ -22,11 +22,25 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
 
     const fetchRoutes = async () => {
       try {
-        const userId = localStorage.getItem("userId"); // Get user ID from local storage
-        const response = await axios.get(
-          `http://127.0.0.1:8000/api/user/${userId}/routes`
-        );
-        setRoutes(response.data);
+        const userRole = localStorage.getItem("userRole"); // Get user role from local storage
+        let response;
+
+        if (userRole === "admin") {
+          response = await axios.get(`http://127.0.0.1:8000/api/routes`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          });
+          setRoutes(response.data || []);
+        } else {
+          const userId = localStorage.getItem("userId");
+          response = await axios.get(
+            `http://127.0.0.1:8000/api/user/${userId}/routes`,
+            { role: userRole }
+          );
+          setRoutes(response.data);
+        }
+        console.log("API Response:", response.data); // Log the response data
       } catch (error) {
         console.error("Error fetching routes:", error);
       }

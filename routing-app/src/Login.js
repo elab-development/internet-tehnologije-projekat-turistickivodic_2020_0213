@@ -19,12 +19,13 @@ const Login = ({ setIsLoggedIn, setUserName }) => {
       console.log(response.data); // Log the full response data to inspect the structure
 
       // Save the token and user name in localStorage
-      localStorage.setItem("authToken", response.data.token);
+      localStorage.setItem("authToken", response.data.access_token);
 
       // Check if the response contains the user's name
       if (response.data.user && response.data.user.name) {
         localStorage.setItem("userName", response.data.user.name); // Save the user's name
         localStorage.setItem("userId", response.data.user.id); // Save the user's ID
+        localStorage.setItem("userRole", response.data.user.role);
         setUserName(response.data.user.name); // Set the user's name in state
       } else {
         console.warn("User name not found in the response.");
