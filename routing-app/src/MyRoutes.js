@@ -4,6 +4,8 @@ import axios from "axios";
 
 const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   const [routes, setRoutes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const routesPerPage = 3; // Number of routes to display per page
   const navigate = useNavigate();
   const alertShownRef = useRef(false);
 
@@ -39,24 +41,20 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
 
   const handleDeleteRoute = async (routeId) => {
     try {
-      // Fetch the route to get its locations
       const routeResponse = await axios.get(
         `http://127.0.0.1:8000/api/routes/${routeId}`
       );
       const locations = routeResponse.data.locations;
       console.log("Locations to delete:", locations);
 
-      // Delete each location associated with the route
       const deleteLocationPromises = locations.map((location) =>
         axios.delete(`http://127.0.0.1:8000/api/locations/${location.id}`)
       );
 
-      await Promise.all(deleteLocationPromises); // Wait for all location deletions to complete
+      await Promise.all(deleteLocationPromises);
 
-      // Now delete the route itself
       await axios.delete(`http://127.0.0.1:8000/api/routes/${routeId}`);
 
-      // Update the state to remove the deleted route
       setRoutes((prevRoutes) =>
         prevRoutes.filter((route) => route.id !== routeId)
       );
@@ -67,13 +65,32 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
     }
   };
 
+  // Pagination logic
+  const indexOfLastRoute = currentPage * routesPerPage;
+  const indexOfFirstRoute = indexOfLastRoute - routesPerPage;
+  const currentRoutes = routes.slice(indexOfFirstRoute, indexOfLastRoute);
+
+  const totalPages = Math.ceil(routes.length / routesPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return isLoggedIn ? (
     <div>
       <h1>My Routes</h1>
-      {routes.length === 0 ? (
+      {currentRoutes.length === 0 ? (
         <p>No routes found.</p>
       ) : (
-        routes.map((route) => (
+        currentRoutes.map((route) => (
           <div key={route.id}>
             <h2>{route.name}</h2>
             <p>{route.description}</p>
@@ -91,6 +108,24 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
             </button>
           </div>
         ))
+      )}
+
+      {/* Pagination Controls */}
+      {routes.length > routesPerPage && (
+        <div>
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+          <p>
+            Page {currentPage} of {totalPages}
+          </p>
+        </div>
       )}
     </div>
   ) : null;
