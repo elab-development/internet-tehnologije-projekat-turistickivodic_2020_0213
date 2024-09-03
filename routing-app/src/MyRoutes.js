@@ -5,6 +5,7 @@ import axios from "axios";
 const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   const [routes, setRoutes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState(""); // Filter state
   const routesPerPage = 3; // Number of routes to display per page
   const navigate = useNavigate();
   const alertShownRef = useRef(false);
@@ -65,12 +66,20 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
     }
   };
 
+  // Filter the routes based on the filter input
+  const filteredRoutes = routes.filter((route) =>
+    route.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   // Pagination logic
   const indexOfLastRoute = currentPage * routesPerPage;
   const indexOfFirstRoute = indexOfLastRoute - routesPerPage;
-  const currentRoutes = routes.slice(indexOfFirstRoute, indexOfLastRoute);
+  const currentRoutes = filteredRoutes.slice(
+    indexOfFirstRoute,
+    indexOfLastRoute
+  );
 
-  const totalPages = Math.ceil(routes.length / routesPerPage);
+  const totalPages = Math.ceil(filteredRoutes.length / routesPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -87,6 +96,15 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   return isLoggedIn ? (
     <div>
       <h1>My Routes</h1>
+
+      {/* Filter Input */}
+      <input
+        type="text"
+        placeholder="Filter routes by name..."
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
+
       {currentRoutes.length === 0 ? (
         <p>No routes found.</p>
       ) : (
@@ -111,7 +129,7 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
       )}
 
       {/* Pagination Controls */}
-      {routes.length > routesPerPage && (
+      {filteredRoutes.length > routesPerPage && (
         <div>
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Previous
