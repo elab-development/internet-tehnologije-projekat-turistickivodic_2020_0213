@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./MyRoutes.css"; // Import the CSS file
 
 const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   const [routes, setRoutes] = useState([]);
@@ -103,7 +104,7 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   };
 
   return isLoggedIn ? (
-    <div>
+    <div className="my-routes-container">
       <h1>My Routes</h1>
 
       {/* Filter Input */}
@@ -138,7 +139,7 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
 
       {/* Pagination Controls */}
       {filteredRoutes.length > routesPerPage && (
-        <div>
+        <div className="pagination">
           <button onClick={handlePrevPage} disabled={currentPage === 1}>
             Previous
           </button>
