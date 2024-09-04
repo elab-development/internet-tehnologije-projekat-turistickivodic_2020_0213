@@ -6,6 +6,7 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import axios from "axios";
+import "./MapComponent.css";
 
 const MapComponent = () => {
   const [directions, setDirections] = useState(null);
@@ -17,13 +18,6 @@ const MapComponent = () => {
   const [showDirections, setShowDirections] = useState(false);
   const [center, setCenter] = useState({ lat: 44.8125449, lng: 20.46123 });
   const mapRef = useRef(null);
-
-  const mapContainerStyle = {
-    position: "fixed",
-    bottom: 0,
-    width: "100%",
-    height: "88vh",
-  };
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyC6MUmcb35NXsOgxJl5hWdM9Bnp5jDOsgw",
@@ -199,34 +193,6 @@ const MapComponent = () => {
     }
   }, []);
 
-  const controlsStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    gap: "10px",
-    marginBottom: "10px",
-  };
-
-  const rowStyle = {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    flexWrap: "wrap",
-  };
-
-  const inputStyle = {
-    padding: "5px",
-    fontSize: "14px",
-    width: "100%",
-    maxWidth: "300px",
-  };
-
-  const buttonStyle = {
-    padding: "5px 10px",
-    fontSize: "14px",
-    cursor: "pointer",
-  };
-
   if (loadError) {
     return <div>Error loading maps</div>;
   }
@@ -236,52 +202,49 @@ const MapComponent = () => {
   }
 
   return (
-    <div>
-      <div style={controlsStyle}>
+    <div className="flex-container">
+      <div className="controls-container">
         {/* First row: Name and Description */}
-        <div style={rowStyle}>
+        <div className="row-container">
           <input
             type="text"
             placeholder="Name"
             value={name}
             onChange={handleNameChange}
-            style={inputStyle}
+            className="input-field"
           />
           <textarea
             placeholder="Description"
             value={description}
             onChange={handleDescriptionChange}
-            style={{ ...inputStyle, height: "60px" }}
+            className="textarea-field"
           />
         </div>
 
         {/* Second row: Origin, Add Waypoint, Destination, and Get Route */}
-        <div style={rowStyle}>
+        <div className="row-container">
           <input
             type="text"
             placeholder="Origin"
             value={origin}
             onChange={handleOriginChange}
-            style={inputStyle}
+            className="input-field"
           />
           {waypoints.map((waypoint, index) => (
-            <div
-              key={index}
-              style={{ display: "flex", alignItems: "center", gap: "5px" }}
-            >
+            <div key={index} className="waypoint-container">
               <input
                 type="text"
                 placeholder={`Waypoint ${index + 1}`}
                 value={waypoint}
                 onChange={(e) => handleWaypointChange(index, e.target.value)}
-                style={inputStyle}
+                className="input-field"
               />
-              <button onClick={() => removeWaypoint(index)} style={buttonStyle}>
+              <button onClick={() => removeWaypoint(index)} className="button">
                 Remove
               </button>
             </div>
           ))}
-          <button onClick={addWaypoint} style={buttonStyle}>
+          <button onClick={addWaypoint} className="button">
             Add Waypoint
           </button>
           <input
@@ -289,18 +252,19 @@ const MapComponent = () => {
             placeholder="Destination"
             value={destination}
             onChange={handleDestinationChange}
-            style={inputStyle}
+            className="input-field"
           />
-          <button onClick={handleRouteClick} style={buttonStyle}>
+          <button onClick={handleRouteClick} className="button">
             Get Route
           </button>
-          <button onClick={handleSaveRoute} style={buttonStyle}>
+          <button onClick={handleSaveRoute} className="button">
             Save Route
           </button>
         </div>
       </div>
+
       <GoogleMap
-        mapContainerStyle={mapContainerStyle}
+        mapContainerClassName="map-container"
         center={center}
         zoom={12}
         onLoad={onMapLoad}

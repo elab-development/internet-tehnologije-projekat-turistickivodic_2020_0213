@@ -1,0 +1,82 @@
+/* MapComponent.css */
+
+/* MapComponent.css */
+
+.map-container {
+    position: relative; /* Changed from fixed to relative */
+    width: 70%; /* Adjust the width of the map */
+    height: 88vh;}
+
+/* Container for the form controls */
+.controls-container {
+    width: 30%; /* Adjust the width of the controls */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px; /* Increased gap between elements */
+    margin-bottom: 10px;
+    padding: 20px; /* Add padding around the form */
+    background-color: #f8f9fa; /* Light background for the form */
+    border-radius: 8px; /* Rounded corners for the container */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Flex container to arrange controls and map side by side */
+.flex-container {
+    display: flex; /* Use flexbox to align items horizontally */
+    height: 90vh; /* Full height */
+}
+
+/* Row styling */
+.row-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Input field styling */
+.input-field,
+.textarea-field {
+    padding: 10px; /* Increased padding */
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s; /* Transition effect on focus */
+}
+
+.input-field:focus,
+.textarea-field:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+/* Textarea specific styling */
+.textarea-field {
+    height: 60px; /* Set height for textarea */
+}
+
+/* Button styling */
+.button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #343a40; /* Dark grey background */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Transition effect on hover */
+}
+
+.button:hover {
+    background-color: #23272b; /* Darker grey on hover */
+}
+
+/* Waypoint container */
+.waypoint-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
