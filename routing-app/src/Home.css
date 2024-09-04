@@ -1,0 +1,78 @@
+/* Home.css */
+* {
+    background-color: "#333",
+}
+
+.main {
+    padding: 20px;
+    padding-bottom: 150px;
+    background-color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+}
+
+.home-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-content {
+    max-width: 450px;
+}
+
+.home-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+.home-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #34495e;
+}
+
+.home-list li {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 15px; /* Slightly reduced the space between bullet points */
+}
+
+.home-image {
+    max-width: 700px; /* Larger image size */
+    height: auto;
+    margin-left: -40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-content {
+        max-width: 100%;
+    }
+
+    .home-image {
+        max-width: 100%;
+        margin: 20px 0 0 0;
+    }
+}

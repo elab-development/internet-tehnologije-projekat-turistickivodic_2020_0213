@@ -49,11 +49,6 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
     fetchRoutes();
   }, [isLoggedIn, navigate]);
 
-  const handleShowOnMap = (route) => {
-    console.log("Selected route:", route);
-    navigate("/map", { state: { route } }); // Navigate to MapComponent with the selected route as state
-  };
-
   const handleDeleteRoute = async (routeId) => {
     try {
       const routeResponse = await axios.get(
@@ -134,7 +129,6 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
                 </li>
               ))}
             </ul>
-            <button onClick={() => handleShowOnMap(route)}>Show on Map</button>
             <button onClick={() => handleDeleteRoute(route.id)}>
               Delete Route
             </button>
