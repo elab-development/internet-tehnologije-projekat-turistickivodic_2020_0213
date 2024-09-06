@@ -50,7 +50,7 @@ const MapComponent = () => {
   const removeWaypoint = (index) => {
     const newWaypoints = waypoints.filter((_, i) => i !== index);
     setWaypoints(newWaypoints);
-    setShowDirections(false); // Trigger re-render without the removed waypoint
+    setShowDirections(false);
   };
 
   const geocodeAddress = (address, callback) => {
@@ -101,16 +101,15 @@ const MapComponent = () => {
 
   const handleSaveRoute = async () => {
     try {
-      const token = localStorage.getItem("authToken"); // Get the token from local storage
-      const userId = localStorage.getItem("userId"); // Get the user ID from local storage
+      const token = localStorage.getItem("authToken");
+      const userId = localStorage.getItem("userId");
 
-      // Save the route
       const routeResponse = await axios.post(
         "http://127.0.0.1:8000/api/routes",
         { name, description, user_id: userId },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the headers
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -118,7 +117,6 @@ const MapComponent = () => {
       const routeId = routeResponse.data.route.id;
       console.log("Route Response:", routeResponse);
 
-      // Save each location
       const locations = [
         { name: origin, address: origin, order: 1 },
         ...waypoints.map((wp, index) => ({
@@ -155,7 +153,7 @@ const MapComponent = () => {
                       },
                       {
                         headers: {
-                          Authorization: `Bearer ${token}`, // Include the token in the headers
+                          Authorization: `Bearer ${token}`,
                         },
                       }
                     );
@@ -204,7 +202,7 @@ const MapComponent = () => {
   return (
     <div className="flex-container">
       <div className="controls-container">
-        {/* First row: Name and Description */}
+        {}
         <div className="row-container">
           <input
             type="text"
@@ -221,7 +219,7 @@ const MapComponent = () => {
           />
         </div>
 
-        {/* Second row: Origin, Add Waypoint, Destination, and Get Route */}
+        {}
         <div className="row-container">
           <input
             type="text"

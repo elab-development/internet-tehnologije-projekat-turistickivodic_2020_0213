@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Register = () => {
-  const [name, setName] = useState(""); // Change username to name
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,7 +11,7 @@ const Register = () => {
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/register", {
-        name: name, // Use name instead of username
+        name: name,
         email: email,
         password: password,
       });
@@ -36,13 +36,12 @@ const Register = () => {
       <h2>Register</h2>
       <form onSubmit={handleSubmit} style={formStyle}>
         <div style={inputGroupStyle}>
-          <label htmlFor="name">Name:</label>{" "}
-          {/* Change label from username to name */}
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
-            id="name" // Change id from username to name
-            value={name} // Use name state
-            onChange={(e) => setName(e.target.value)} // Update state for name
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             style={inputStyle}
           />
         </div>

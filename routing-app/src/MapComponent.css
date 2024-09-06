@@ -1,33 +1,29 @@
-/* MapComponent.css */
-
-/* MapComponent.css */
 
 .map-container {
-    position: relative; /* Changed from fixed to relative */
-    width: 70%; /* Adjust the width of the map */
-    height: 88vh;}
+    position: relative; 
+    width: 70%; 
+    height: 93vh;}
 
-/* Container for the form controls */
+
 .controls-container {
-    width: 30%; /* Adjust the width of the controls */
+    width: 30%; 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px; /* Increased gap between elements */
-    margin-bottom: 10px;
-    padding: 20px; /* Add padding around the form */
-    background-color: #f8f9fa; /* Light background for the form */
-    border-radius: 8px; /* Rounded corners for the container */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    gap: 15px; 
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* Flex container to arrange controls and map side by side */
+
 .flex-container {
-    display: flex; /* Use flexbox to align items horizontally */
-    height: 90vh; /* Full height */
+    display: flex; 
+    height: 93vh; 
 }
 
-/* Row styling */
+
 .row-container {
     display: flex;
     align-items: center;
@@ -35,46 +31,46 @@
     flex-wrap: wrap;
 }
 
-/* Input field styling */
+
 .input-field,
 .textarea-field {
-    padding: 10px; /* Increased padding */
+    padding: 10px; 
     font-size: 14px;
     width: 100%;
     max-width: 300px;
-    border: 1px solid #ced4da; /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    transition: border-color 0.3s; /* Transition effect on focus */
+    border: 1px solid #ced4da; 
+    border-radius: 5px; 
+    transition: border-color 0.3s;
 }
 
 .input-field:focus,
 .textarea-field:focus {
-    border-color: #007bff; /* Change border color on focus */
-    outline: none; /* Remove outline */
+    border-color: #007bff; 
+    outline: none;
 }
 
-/* Textarea specific styling */
+
 .textarea-field {
-    height: 60px; /* Set height for textarea */
+    height: 60px; 
 }
 
-/* Button styling */
+
 .button {
     padding: 10px 15px;
     font-size: 14px;
     cursor: pointer;
-    background-color: #343a40; /* Dark grey background */
-    color: white; /* White text */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s; /* Transition effect on hover */
+    background-color: #343a40; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
 }
 
 .button:hover {
-    background-color: #23272b; /* Darker grey on hover */
+    background-color: #23272b; 
 }
 
-/* Waypoint container */
+
 .waypoint-container {
     display: flex;
     align-items: center;

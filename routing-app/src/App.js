@@ -4,28 +4,28 @@ import Home from "./Home";
 import MapComponent from "./MapComponent";
 import Login from "./Login";
 import Register from "./Register";
-import MyRoutes from "./MyRoutes"; // Import the new MyRoutes component
+import MyRoutes from "./MyRoutes";
 
 const App = () => {
-  const [userName, setUserName] = useState(""); // State to hold the user's name
+  const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Effect to check if the user is already logged in
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    const name = localStorage.getItem("userName"); // Retrieve username from local storage
+    const name = localStorage.getItem("userName");
     if (token && name) {
       setIsLoggedIn(true);
-      setUserName(name); // Set the username
+      setUserName(name);
     }
   }, []);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setUserName(""); // Clear the username
-    localStorage.removeItem("authToken"); // Remove token
-    localStorage.removeItem("userName"); // Remove username
-    localStorage.removeItem("userId"); // Remove user ID
+    setUserName("");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
     alert("You have been logged out.");
   };
 
@@ -41,7 +41,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        {/* Display username above the navbar */}
+        {}
         {isLoggedIn && (
           <div style={userNameDisplayStyle}>Welcome, {userName}!</div>
         )}
@@ -93,7 +93,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route
             path="/routes"
-            element={<MyRoutes isLoggedIn={isLoggedIn} />} // Use the MyRoutes component here
+            element={<MyRoutes isLoggedIn={isLoggedIn} />}
           />
         </Routes>
       </div>

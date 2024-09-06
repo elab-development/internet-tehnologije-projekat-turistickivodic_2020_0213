@@ -112,7 +112,6 @@ class RouteController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'user_id' => 'required|integer|exists:users,id',
         ]);
 
         // Find the route by ID
@@ -120,19 +119,18 @@ class RouteController extends Controller
 
         // Check if the route exists
         if (!$route) {
-            return redirect('/routes')->with('error', 'Route not found');
+            return response()->json(['error' => 'Route not found'], 404);
         }
-
+        
         // Update the route with the validated data
         $route->name = $validatedData['name'];
         $route->description = $validatedData['description'];
-        $route->user_id = $validatedData['user_id'];
-
+        
         // Save the updated route
         $route->save();
-
-        // Redirect with success message
-        return redirect('/routes')->with('success', 'Route updated successfully');
+        
+        // Return a success response
+        return response()->json(['success' => 'Route updated successfully', 'route' => $route], 200);
     }
 
     /**

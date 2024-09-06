@@ -41,7 +41,6 @@ class MyRouteController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'user_id' => 'required|exists:users,id',
-            'is_approved' => 'boolean'
         ]);
 
 
@@ -49,7 +48,6 @@ class MyRouteController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $request->user_id,
-            'is_approved' => $request->is_approved ?? false,
         ]);
 
         $route->save();
@@ -89,9 +87,23 @@ class MyRouteController extends Controller
      * @param  \App\Models\Route  $route
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Route $route)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $route = Route::findOrFail($id);
+
+        $route->name = $request->name;
+        $route->description = $request->description;
+        $route->save();
+
+        return response()->json([
+            'message' => 'Route updated successfully',
+            'route' => $route
+        ], 200);
     }
 
     /**
@@ -100,8 +112,13 @@ class MyRouteController extends Controller
      * @param  \App\Models\Route  $route
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Route $route)
+    public function destroy($id)
     {
-        //
+        $route = Route::findOrFail($id);
+        $route->delete();
+
+        return response()->json([
+            'message' => 'Route deleted successfully'
+        ], 200);
     }
 }

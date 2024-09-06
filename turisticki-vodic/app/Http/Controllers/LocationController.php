@@ -50,10 +50,8 @@ class LocationController extends Controller
         // Validate the request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'route_id' => 'required|exists:routes,id',
             'latitude' => 'required',
             'longitude' => 'required',
-            'order' => 'required',
         ]);
 
         // Find the route by ID
@@ -66,8 +64,6 @@ class LocationController extends Controller
 
         // Update the route with the validated data
         $location->name = $validatedData['name'];
-        $location->order = $validatedData['order'];
-        $location->route_id = $validatedData['route_id'];
         $location->longitude = $validatedData['longitude'];
         $location->latitude = $validatedData['latitude'];
 

@@ -50,11 +50,11 @@
 .home-list li {
     font-size: 1.1rem;
     line-height: 1.8;
-    margin-bottom: 15px; /* Slightly reduced the space between bullet points */
+    margin-bottom: 15px;
 }
 
 .home-image {
-    max-width: 700px; /* Larger image size */
+    max-width: 700px;
     height: auto;
     margin-left: -40px;
     border-radius: 10px;

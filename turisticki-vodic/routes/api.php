@@ -22,7 +22,7 @@ use App\Http\Controllers\TourController;
 |
 */
 
-Route::get('/routes', 'App\Http\Controllers\RouteController@index');
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
@@ -51,11 +51,11 @@ Route::post('/login', [AuthController::class, 'login']);
 //Route::resource('routes', MyRouteController::class);
 
 //routes
-
+Route::get('/routes', 'App\Http\Controllers\RouteController@index');
 Route::get('/routes/{id}', 'App\Http\Controllers\RouteController@show');
 Route::post('/routes', 'App\Http\Controllers\RouteController@store');
 Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
-//Route::put('/routes/{route}', 'App\Http\Controllers\RouteController@update');
+Route::put('/routes/{id}', [RouteController::class, 'update']);
 
 //locations
 Route::get('/locations', 'App\Http\Controllers\LocationController@index');
@@ -64,7 +64,7 @@ Route::post('/locations', 'App\Http\Controllers\LocationController@store');
 Route::delete('/locations/{location}', 'App\Http\Controllers\LocationController@destroy');
 Route::put('/locations/{id}', 'App\Http\Controllers\LocationController@update');
 
-//nested
+//users
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::resource('user.routes', UserRouteController::class);

@@ -16,28 +16,23 @@ const Login = ({ setIsLoggedIn, setUserName }) => {
         password: password,
       });
 
-      console.log(response.data); // Log the full response data to inspect the structure
+      console.log(response.data);
 
-      // Save the token and user name in localStorage
       localStorage.setItem("authToken", response.data.access_token);
 
-      // Check if the response contains the user's name
       if (response.data.user && response.data.user.name) {
-        localStorage.setItem("userName", response.data.user.name); // Save the user's name
-        localStorage.setItem("userId", response.data.user.id); // Save the user's ID
+        localStorage.setItem("userName", response.data.user.name);
+        localStorage.setItem("userId", response.data.user.id);
         localStorage.setItem("userRole", response.data.user.role);
-        setUserName(response.data.user.name); // Set the user's name in state
+        setUserName(response.data.user.name);
       } else {
         console.warn("User name not found in the response.");
       }
 
-      // Update state to indicate the user is logged in
       setIsLoggedIn(true);
 
-      // Show success message
       alert("Login successful!");
 
-      // Redirect to the map page
       navigate("/map");
     } catch (error) {
       if (error.response) {
