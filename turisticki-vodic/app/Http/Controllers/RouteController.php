@@ -42,26 +42,29 @@ class RouteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'user_id' => 'required|exists:users,id',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'user_id' => 'required|exists:users,id',
+        'total_duration' => 'string',
+    ]);
 
-        $route = new Route([
-            'name' => $request->name,
-            'description' => $request->description,
-            'user_id' => $request->user_id,
-        ]);
+    $route = new Route([
+        'name' => $request->name,
+        'description' => $request->description,
+        'user_id' => $request->user_id,
+        'total_duration' => $request->total_duration, // Store the total_duration
+    ]);
 
-        $route->save();
+    $route->save();
 
-        return response()->json([
-            'message' => 'Route created successfully!',
-            'route' => $route
-        ], 201);
-    }
+    return response()->json([
+        'message' => 'Route created successfully!',
+        'route' => $route
+    ], 201);
+}
+
 
     /**
      * Display the specified resource.

@@ -24,7 +24,7 @@ class RouteResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'user' => $this->user,
-            'locations' => $this->whenLoaded('locations'), // Include locations if they are loaded
+            'locations' => $this->whenLoaded('locations'),
         ];
     }
 }

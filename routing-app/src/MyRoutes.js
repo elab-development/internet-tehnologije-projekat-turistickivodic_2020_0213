@@ -133,11 +133,12 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
           <div key={route.id}>
             <h2>{route.name}</h2>
             <p>{route.description}</p>
+            <p>Total length: {route.total_duration}</p>
             <ul>
               {route.locations.map((location) => (
                 <li key={location.id}>
                   {location.order}: {location.name} (Lat: {location.latitude},
-                  Lng: {location.longitude})
+                  Lng: {location.longitude} )
                 </li>
               ))}
             </ul>
