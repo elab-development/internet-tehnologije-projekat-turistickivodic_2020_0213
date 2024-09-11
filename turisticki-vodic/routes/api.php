@@ -28,7 +28,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function(Request $request) {
         return auth()->user();
     });
-    Route::resource('routesR', MyRouteController::class)->only(['update','store','destroy','index']);
+
+    //zasticene rute
+    Route::resource('user.routes', UserRouteController::class);
+    Route::get('/users/{id}/routes', [UserRouteController::class, 'index'])->name('users.posts.index');
+
+    Route::post('/routes', 'App\Http\Controllers\RouteController@store');
+    Route::post('/locations', 'App\Http\Controllers\LocationController@store');
+
+    Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
+    Route::delete('/locations/{location}', 'App\Http\Controllers\LocationController@destroy');
+
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -53,26 +63,28 @@ Route::post('/login', [AuthController::class, 'login']);
 //routes
 Route::get('/routes', 'App\Http\Controllers\RouteController@index');
 Route::get('/routes/{id}', 'App\Http\Controllers\RouteController@show');
-Route::post('/routes', 'App\Http\Controllers\RouteController@store');
-Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
+
+
 Route::put('/routes/{id}', [RouteController::class, 'update']);
 
 //locations
 Route::get('/locations', 'App\Http\Controllers\LocationController@index');
 Route::get('/locations/{id}', 'App\Http\Controllers\LocationController@show');
-Route::post('/locations', 'App\Http\Controllers\LocationController@store');
-Route::delete('/locations/{location}', 'App\Http\Controllers\LocationController@destroy');
+
+
 Route::put('/locations/{id}', 'App\Http\Controllers\LocationController@update');
 
 //users
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::resource('user.routes', UserRouteController::class);
+
 //Route::delete('/routes/{id}', [UserRouteController::class, 'destroy']);
-Route::get('/users/{id}/routes', [UserRouteController::class, 'index'])->name('users.posts.index');
+
 Route::get('/routesAll', [UserRouteController::class, 'indexAll'])->name('users.posts.index');
 
 
 Route::get('tours', [TourController::class, 'index']);
 
 Route::get('/admin/routes', 'RouteController@getUserRoutes')->middleware('admin');
+
+//Route::resource('routesR', MyRouteController::class)->only(['update','store','destroy','index']);

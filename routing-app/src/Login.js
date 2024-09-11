@@ -104,8 +104,7 @@ const inputStyle = {
 };
 
 const buttonContainerStyle = {
-  display: "flex",
-  justifyContent: "center",
+  marginTop: "15px",
 };
 
 const buttonStyle = {
@@ -115,7 +114,7 @@ const buttonStyle = {
   color: "#fff",
   border: "none",
   cursor: "pointer",
-  width: "100%",
+  width: "100%", // Make the button take the full width like the input fields
 };
 
 export default Login;

@@ -19,13 +19,10 @@ const Register = () => {
       console.log("Registration successful:", response.data);
     } catch (error) {
       if (error.response) {
-        // Server responded with a status other than 2xx
         console.error("Registration failed:", error.response.data);
       } else if (error.request) {
-        // Request was made but no response received
         console.error("No response received:", error.request);
       } else {
-        // Something else happened while setting up the request
         console.error("Error setting up request:", error.message);
       }
     }

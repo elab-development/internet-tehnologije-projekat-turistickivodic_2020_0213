@@ -6,8 +6,8 @@ import "./MyRoutes.css"; // Import the CSS file
 const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
   const [routes, setRoutes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState(""); // Filter state
-  const routesPerPage = 3; // Number of routes to display per page
+  const [filter, setFilter] = useState("");
+  const routesPerPage = 3;
   const navigate = useNavigate();
   const alertShownRef = useRef(false);
 
@@ -37,7 +37,12 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
           const userId = localStorage.getItem("userId");
           response = await axios.get(
             `http://127.0.0.1:8000/api/user/${userId}/routes`,
-            { role: userRole }
+            {
+              role: userRole,
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+            }
           );
           setRoutes(response.data);
         }
@@ -59,12 +64,20 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
       console.log("Locations to delete:", locations);
 
       const deleteLocationPromises = locations.map((location) =>
-        axios.delete(`http://127.0.0.1:8000/api/locations/${location.id}`)
+        axios.delete(`http://127.0.0.1:8000/api/locations/${location.id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
       );
 
       await Promise.all(deleteLocationPromises);
 
-      await axios.delete(`http://127.0.0.1:8000/api/routes/${routeId}`);
+      await axios.delete(`http://127.0.0.1:8000/api/routes/${routeId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
 
       setRoutes((prevRoutes) =>
         prevRoutes.filter((route) => route.id !== routeId)
@@ -76,12 +89,10 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
     }
   };
 
-  // Filter the routes based on the filter input
   const filteredRoutes = routes.filter((route) =>
     route.name.toLowerCase().includes(filter.toLowerCase())
   );
 
-  // Pagination logic
   const indexOfLastRoute = currentPage * routesPerPage;
   const indexOfFirstRoute = indexOfLastRoute - routesPerPage;
   const currentRoutes = filteredRoutes.slice(
