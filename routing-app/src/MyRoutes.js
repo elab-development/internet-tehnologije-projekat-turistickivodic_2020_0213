@@ -24,7 +24,7 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
 
     const fetchRoutes = async () => {
       try {
-        const userRole = localStorage.getItem("userRole"); // Get user role from local storage
+        const userRole = localStorage.getItem("userRole");
         let response;
 
         if (userRole === "admin") {
@@ -200,7 +200,18 @@ const MyRoutes = ({ isLoggedIn, onRouteSelect }) => {
               ))}
             </ul>
 
-            <button onClick={() => handleDeleteRoute(route.id)}>
+            <button
+              onClick={() => handleDeleteRoute(route.id)}
+              style={{
+                display:
+                  route.user_id ===
+                    parseInt(localStorage.getItem("userId"), 10) ||
+                  localStorage.getItem("userRole") === "admin"
+                    ? "inline-block"
+                    : "none",
+                marginRight: "10px", // Adds space between the buttons
+              }}
+            >
               Delete Route
             </button>
 

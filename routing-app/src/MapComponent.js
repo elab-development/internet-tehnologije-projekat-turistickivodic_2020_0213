@@ -124,15 +124,13 @@ const MapComponent = () => {
     try {
       const token = localStorage.getItem("authToken");
       const userId = localStorage.getItem("userId");
-
-      // Create the route with the total duration
       const routeResponse = await axios.post(
         "http://127.0.0.1:8000/api/routes",
         {
           name,
           description,
           user_id: userId,
-          total_duration: totalDuration, // Include total duration here
+          total_duration: totalDuration,
         },
         {
           headers: {
@@ -253,7 +251,6 @@ const MapComponent = () => {
             onChange={handleOriginChange}
             className="input-field"
           />
-          <input type="datetime-local" id="start-time" />
           {waypoints.map((waypoint, index) => (
             <div key={index} className="waypoint-container">
               <input
