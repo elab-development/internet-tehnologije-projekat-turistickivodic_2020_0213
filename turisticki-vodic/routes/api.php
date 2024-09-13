@@ -39,9 +39,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/routes/{route}', 'App\Http\Controllers\RouteController@destroy');
     Route::delete('/locations/{location}', 'App\Http\Controllers\LocationController@destroy');
 
+    Route::post('/routes/{id}/approve', [RouteController::class, 'approveRoute']);
+    Route::get('/approved/{id}', [RouteController::class, 'getUserRoutesAndApproved']);
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
+    
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -51,7 +54,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/users', [UserController::class, 'index']);
 
-
+Route::get('/approved-routes', [RouteController::class, 'getApprovedRoutes']);
 
 //login
 Route::post('/register', [AuthController::class, 'register']);
@@ -88,3 +91,5 @@ Route::get('tours', [TourController::class, 'index']);
 Route::get('/admin/routes', 'RouteController@getUserRoutes')->middleware('admin');
 
 //Route::resource('routesR', MyRouteController::class)->only(['update','store','destroy','index']);
+
+

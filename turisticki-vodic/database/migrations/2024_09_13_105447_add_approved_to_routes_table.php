@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('routes', function (Blueprint $table) {
-            $table->string('status')->default('pending'); // Default status is 'pending'
+            $table->boolean('approved')->default(false); // Adding a new boolean column
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('routes', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn('approved'); // Dropping the column if rolled back
         });
     }
 };

@@ -166,4 +166,51 @@ class RouteController extends Controller
         }
         return Route::where('user_id', $userId)->get(); // Regular users only see their routes
     }
+
+    public function getApprovedRoutes()
+    {
+        $approvedRoutes = Route::with('locations')->where('approved', true)->get();
+        return response()->json($approvedRoutes);
+    }
+
+    public function approveRoute($id)
+    {
+        // Find the route by its ID
+        $route = Route::find($id);
+
+        // Check if the route exists
+        if (!$route) {
+            return response()->json(['error' => 'Route not found'], 404);
+        }
+
+        // Approve the route
+        $route->approved = true;
+        $route->save();
+
+        return response()->json(['message' => 'Route approved successfully', 'route' => $route], 200);
+    }
+
+    public function getUserRoutesAndApproved(Request $request, $userId)
+    {
+
+        // Fetch all routes created by the user
+        $userRoutes = Route::with('locations')
+            ->where('user_id', $userId)
+            ->get();
+
+        // Fetch all approved routes that don't belong to the user
+        $approvedRoutes = Route::with('locations')
+            ->where('approved', true)
+            ->where('user_id', '!=', $userId)
+            ->get();
+
+        $combinedRoutes = $userRoutes->merge($approvedRoutes);
+
+        // Return a combined response
+        return response()->json(
+            $combinedRoutes   
+        );
+
+        
+    }
 }
